@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canteen Bill Generator</title>
+  
+
+    <style>
+      
+
+
+        body{
+            @import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+             margin-top: 0px;
+          background-color:salmon; 
+          color: white;
+        }
+        label{
+            font-size: 29px;
+        }
+        input{
+            height: 25px;
+            border-radius: 12px 12px;
+        }
+        .head{
+           margin-top: 60px;
+           margin-bottom: -30px;
+            color: white;
+            text-align: center;
+            font-size: 50px;
+        }
+        button{
+          
+            background: white;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 14px 14px;
+        }
+        th{
+            font-size: 20px;
+        }
+        .totalbill{
+            font-size: 20px;
+        }
+        .mar{
+            margin-left: 0px;
+            
+           width: 200vh;
+            color: red;
+            font-size: 25px;
+            background-color: lavender;
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+<body>
+    
+<center>
+   
+    <marquee class="mar" scrollamount="10">
+        <h5>Welcome to Taj Canteen our branches in Mumbai Thane Mumbra Bandra Andheri Kharghar</h5>
+    </marquee>
+    
+     <h1 class="head">Taj Canteen</h1>
+    <form id="billForm" action="bill.jsp">
+        <table>
+            <tr>
+                <td> <label for="itemName">Item Name:</label></td>
+                <td><input type="text" id="itemName" name="itemName" ></td><br><br>
+</tr>
+<tr>
+    <td>  <label for="quantity">Quantity:</label></td>
+    <td>    <input type="number" min="0" id="quantity" name="quantity" ></td><br><br>
+</tr>
+<tr>
+    <td>  <label for="price">Price:</label></td>
+    <td>    <input type="number" min="0" id="price" name="price" ></td><br><br>
+</tr>
+<tr>
+    <td>    <button type="button" id="addItem">Add Item</button></td><br><br>
+        </tr>
+</table>
+        <br>
+        <table id="billTable">
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <p class="totalbill">Total Bill Amount: <span id="totalAmount">0</span></p>
+
+        <button type="submit" id="generateBill">Generate Bill</button>
+    </form>
+</center>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+    const billForm = document.getElementById("billForm");
+    const addItemButton = document.getElementById("addItem");
+    const billTable = document.getElementById("billTable");
+    const totalAmountSpan = document.getElementById("totalAmount");
+
+    let totalBill = 0;
+
+    addItemButton.addEventListener("click", function () {
+        const itemName = document.getElementById("itemName").value;
+        const quantity = parseInt(document.getElementById("quantity").value);
+        const price = parseFloat(document.getElementById("price").value);
+
+        const total = quantity * price;
+        totalBill += total;
+
+        const newRow = billTable.insertRow(-1);
+        newRow.innerHTML = `<td>${itemName}</td><td>${quantity}</td><td>${price}</td><td>${total}</td>`;
+
+        totalAmountSpan.textContent = totalBill.toFixed(2);
+
+        document.getElementById("itemName").value = "";
+        document.getElementById("quantity").value = "";
+        document.getElementById("price").value = "";
+    });
+
+   
+});
+
+    </script>
+</body>
+</html>
